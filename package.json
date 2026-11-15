@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "eval": "LOG_LEVEL=warn tsx --env-file=.env eval/run.ts"
+    "eval": "LOG_LEVEL=warn tsx --env-file=.env eval/run.ts",
+    "eval:answers": "LOG_LEVEL=warn tsx --env-file=.env eval/answers.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",
