@@ -1,7 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { DocumentsProvider } from "@/hooks/DocumentsProvider";
 import { DocumentsPanel } from "./DocumentsPanel";
+
+const renderPanel = () =>
+  render(
+    <DocumentsProvider>
+      <DocumentsPanel />
+    </DocumentsProvider>,
+  );
 
 const fetchMock = vi.fn();
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status });
@@ -16,7 +24,7 @@ describe("DocumentsPanel", () => {
 
   it("shows the upload area and the documents with a count", async () => {
     fetchMock.mockResolvedValue(json({ documents: [doc("1", "leave.md"), doc("2", "payroll.md")] }));
-    render(<DocumentsPanel />);
+    renderPanel();
 
     expect(screen.getByLabelText("Add a document", { selector: "input" })).toBeInTheDocument();
     expect(await screen.findByText("leave.md")).toBeInTheDocument();
@@ -26,7 +34,7 @@ describe("DocumentsPanel", () => {
 
   it("shows the empty invitation and no count when there are no documents", async () => {
     fetchMock.mockResolvedValue(json({ documents: [] }));
-    render(<DocumentsPanel />);
+    renderPanel();
 
     expect(await screen.findByRole("heading", { name: "No documents yet" })).toBeInTheDocument();
     expect(screen.queryByLabelText(/documents$/)).not.toBeInTheDocument();
@@ -38,7 +46,7 @@ describe("DocumentsPanel", () => {
       .mockResolvedValueOnce(json({ documentId: "7", chunkCount: 1 }, 201))
       .mockResolvedValueOnce(json({ documents: [doc("7", "new.md")] }));
     const user = userEvent.setup();
-    render(<DocumentsPanel />);
+    renderPanel();
     await screen.findByRole("heading", { name: "No documents yet" });
 
     await user.upload(screen.getByLabelText("Add a document", { selector: "input" }), new File(["hi"], "new.md"));
@@ -52,7 +60,7 @@ describe("DocumentsPanel", () => {
       .mockResolvedValueOnce(json({ documents: [doc("1", "leave.md"), doc("2", "payroll.md")] }))
       .mockResolvedValueOnce(new Response(null, { status: 204 }));
     const user = userEvent.setup();
-    render(<DocumentsPanel />);
+    renderPanel();
     await screen.findByText("leave.md");
 
     await user.click(screen.getByRole("button", { name: "Delete leave.md" }));
@@ -66,7 +74,7 @@ describe("DocumentsPanel", () => {
   it("shows an error with a retry when the list cannot be loaded", async () => {
     fetchMock.mockResolvedValueOnce(json({ error: "x" }, 500)).mockResolvedValueOnce(json({ documents: [doc("1", "leave.md")] }));
     const user = userEvent.setup();
-    render(<DocumentsPanel />);
+    renderPanel();
 
     expect(await screen.findByRole("alert")).toHaveTextContent("Could not load your documents.");
     await user.click(screen.getByRole("button", { name: "Try again" }));

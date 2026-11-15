@@ -3,11 +3,11 @@
 import { DocumentList } from "@/components/organisms/DocumentList";
 import { DropZone } from "@/components/organisms/DropZone";
 import { Badge } from "@/components/ui/badge";
-import { useDocuments } from "@/hooks/useDocuments";
+import { useDocumentsContext } from "@/hooks/DocumentsProvider";
 
 // Everything about documents in the sidebar: add a file, see the list, delete.
 export function DocumentsPanel() {
-  const { state, refresh, retry, remove } = useDocuments();
+  const { state, refresh, retry, remove } = useDocumentsContext();
 
   return (
     <div className="flex flex-col gap-4">
