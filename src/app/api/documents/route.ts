@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { pool } from "../../../lib/db";
+import { listDocuments } from "../../../lib/documents";
 import { LocalEmbeddingProvider } from "../../../lib/embeddings/local";
 import { ingestDocument } from "../../../lib/ingest";
 import { createLogger } from "../../../lib/logger";
@@ -7,6 +8,17 @@ import { validateUpload } from "../../../lib/upload";
 
 const log = createLogger("api.documents");
 const embeddings = new LocalEmbeddingProvider();
+
+// The list is read from the database on every request (a database query makes a GET
+// handler run at request time even with Cache Components, so it is never stale).
+export async function GET() {
+  try {
+    return NextResponse.json({ documents: await listDocuments(pool) });
+  } catch (error) {
+    log.error({ err: error }, "listing documents failed");
+    return NextResponse.json({ error: "could not load the documents" }, { status: 500 });
+  }
+}
 
 export async function POST(request: Request) {
   let formData: FormData;

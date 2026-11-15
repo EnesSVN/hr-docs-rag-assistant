@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { POST } from "./route";
+import { GET, POST } from "./route";
 import { ingestDocument } from "../../../lib/ingest";
+import { listDocuments } from "../../../lib/documents";
 
 // The route is tested without a real database or model.
 vi.mock("../../../lib/db", () => ({ pool: {} }));
@@ -8,6 +9,7 @@ vi.mock("../../../lib/embeddings/local", () => ({
   LocalEmbeddingProvider: class {},
 }));
 vi.mock("../../../lib/ingest", () => ({ ingestDocument: vi.fn() }));
+vi.mock("../../../lib/documents", () => ({ listDocuments: vi.fn() }));
 
 function uploadRequest(file?: File) {
   const form = new FormData();
@@ -73,5 +75,30 @@ describe("POST /api/documents", () => {
 
     expect(response.status).toBe(500);
     expect(JSON.stringify(body)).not.toContain("secret db detail");
+  });
+});
+
+describe("GET /api/documents", () => {
+  beforeEach(() => {
+    vi.mocked(listDocuments).mockReset();
+  });
+
+  it("returns the documents", async () => {
+    const documents = [{ id: "1", filename: "a.md", chunkCount: 2, createdAt: "2026-11-15T10:00:00.000Z" }];
+    vi.mocked(listDocuments).mockResolvedValue(documents);
+
+    const response = await GET();
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ documents });
+  });
+
+  it("returns 500 without internal details when the database fails", async () => {
+    vi.mocked(listDocuments).mockRejectedValue(new Error("connection refused 10.0.0.5"));
+
+    const response = await GET();
+
+    expect(response.status).toBe(500);
+    expect(JSON.stringify(await response.json())).not.toContain("10.0.0.5");
   });
 });
