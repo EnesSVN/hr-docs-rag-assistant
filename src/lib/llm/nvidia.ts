@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createLogger } from "../logger";
-import type { LlmProvider } from "./provider";
+import { LlmError, type LlmProvider } from "./provider";
 
 const log = createLogger("llm");
 
@@ -112,21 +112,21 @@ export class NvidiaLlmProvider implements LlmProvider {
     if (!response.ok) {
       // The status is enough; the body is not logged or thrown (it may echo input).
       const message = `model returned HTTP ${response.status}`;
-      throw isRetryableStatus(response.status) ? new RetryableError(message) : new Error(message);
+      throw isRetryableStatus(response.status) ? new RetryableError(message) : new LlmError(message);
     }
 
     const parsed = responseSchema.safeParse(await response.json());
     if (!parsed.success) {
-      throw new Error("model response had an unexpected shape");
+      throw new LlmError("model response had an unexpected shape");
     }
 
     const choice = parsed.data.choices[0];
     const content = choice.message.content?.trim() ?? "";
     if (content === "") {
-      throw new Error(`model returned no answer text (finish reason: ${choice.finish_reason ?? "unknown"})`);
+      throw new LlmError(`model returned no answer text (finish reason: ${choice.finish_reason ?? "unknown"})`);
     }
     return content;
   }
 }
 
-class RetryableError extends Error {}
+class RetryableError extends LlmError {}
