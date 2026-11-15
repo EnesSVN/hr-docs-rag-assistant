@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { FilePlus2, MessagesSquare, SquarePen } from "lucide-react";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { StarterPrompts } from "@/components/molecules/StarterPrompts";
-import { ChatMessage } from "@/components/organisms/ChatMessage";
+import { ChatMessage, messageElementId } from "@/components/organisms/ChatMessage";
 import { Composer } from "@/components/organisms/Composer";
 import { Button } from "@/components/ui/button";
 import { useDocumentsContext } from "@/hooks/DocumentsProvider";
@@ -27,9 +27,15 @@ export function ChatPanel() {
   const documentCount = state.status === "ready" ? state.documents.length : null;
   const noDocuments = documentCount === 0;
 
-  // Keep the newest message in view.
+  // Keep the newest message in view. A finished answer can be long (its sources), so
+  // show where it starts instead of its end; otherwise follow the bottom.
   useEffect(() => {
-    scrollToElement(bottom.current, "end");
+    const last = messages.at(-1);
+    if (last?.role === "assistant" && last.status === "answered") {
+      scrollToElement(document.getElementById(messageElementId(last.id)), "start");
+    } else {
+      scrollToElement(bottom.current, "end");
+    }
   }, [messages]);
 
   return (

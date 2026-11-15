@@ -171,4 +171,42 @@ describe("ChatPanel", () => {
 
     expect(await screen.findByRole("log", { name: "Conversation" })).toHaveAttribute("aria-live", "polite");
   });
+
+  describe("scrolling", () => {
+    const scroll = vi.fn();
+    beforeEach(() => {
+      scroll.mockReset();
+      Element.prototype.scrollIntoView = scroll;
+    });
+    afterEach(() => {
+      // @ts-expect-error: removing the test double again
+      delete Element.prototype.scrollIntoView;
+    });
+
+    it("follows the bottom while the answer is on its way", async () => {
+      const user = userEvent.setup();
+      setup([doc], () => new Promise<Response>(() => {}));
+      await screen.findByRole("list", { name: "Example questions" });
+
+      await user.type(box(), "Question{Enter}");
+      await screen.findByRole("status", { name: "" });
+
+      const last = scroll.mock.calls.at(-1)![0];
+      expect(last).toEqual({ behavior: "smooth", block: "end" });
+    });
+
+    it("shows the beginning of a finished answer, not its end, because the sources can be long", async () => {
+      const user = userEvent.setup();
+      setup([doc]);
+      await screen.findByRole("list", { name: "Example questions" });
+
+      await user.type(box(), "Question{Enter}");
+      await screen.findByRole("button", { name: "Show source 1" });
+
+      const lastCall = scroll.mock.calls.length - 1;
+      expect(scroll.mock.calls[lastCall][0]).toEqual({ behavior: "smooth", block: "start" });
+      const scrolledElement = scroll.mock.contexts[lastCall] as HTMLElement;
+      expect(scrolledElement).toBe(screen.getByRole("article", { name: "Answer" }));
+    });
+  });
 });

@@ -15,6 +15,9 @@ interface ChatMessageProps {
   onRetry: (id: string) => void;
 }
 
+// The id of an answer on the page, so the chat can scroll to its beginning.
+export const messageElementId = (messageId: string) => `message-${messageId}`;
+
 const ENTER = "animate-in fade-in slide-in-from-bottom-2 duration-300 ease-apple";
 const BUBBLE = "rounded-2xl rounded-bl-md border border-border bg-card px-4 py-3 shadow-soft";
 
@@ -43,7 +46,7 @@ export function ChatMessage({ message, onRetry }: ChatMessageProps) {
   }
 
   return (
-    <article aria-label="Answer" className={`flex max-w-[92%] flex-col gap-3 ${ENTER}`}>
+    <article id={messageElementId(message.id)} aria-label="Answer" className={`flex max-w-[92%] scroll-mt-14 flex-col gap-3 ${ENTER}`}>
       {message.status === "pending" && (
         <div className={BUBBLE}>
           <TypingIndicator />
@@ -65,8 +68,8 @@ export function ChatMessage({ message, onRetry }: ChatMessageProps) {
           <div className="flex flex-col gap-1">
             <p className="text-[15px] font-medium">I couldn&apos;t find that in your documents.</p>
             <p className="text-sm text-muted-foreground">
-              Try asking in other words, or add a document that covers it. Questions work best in the same language as
-              the documents.
+              Try asking in other words or about a specific topic, or add a document that covers it. Questions work
+              best in the same language as the documents.
             </p>
           </div>
         </div>
