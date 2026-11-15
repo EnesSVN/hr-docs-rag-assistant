@@ -4,11 +4,11 @@ import type { EmbeddingProvider } from "./provider";
 
 const log = createLogger("embeddings");
 
-const MODEL = "Xenova/multilingual-e5-small";
-const DIMENSIONS = 384;
+export const DEFAULT_MODEL = "Xenova/multilingual-e5-small";
+export const DEFAULT_DIMENSIONS = 384;
 const BATCH_SIZE = 16;
 
-// Keep the downloaded model inside the project folder (git-ignored).
+// Keep the downloaded models inside the project folder (git-ignored).
 hfEnv.cacheDir = "./.cache/models";
 
 type Extractor = (
@@ -16,29 +16,40 @@ type Extractor = (
   options: { pooling: "mean"; normalize: boolean },
 ) => Promise<{ tolist(): number[][] }>;
 
-// Load the model once and reuse it: loading is slow, running it is fast.
-let extractorPromise: Promise<Extractor> | undefined;
+// Load each model once and reuse it: loading is slow, running it is fast.
+const extractors = new Map<string, Promise<Extractor>>();
 
-function getExtractor(): Promise<Extractor> {
-  if (!extractorPromise) {
-    log.info({ model: MODEL }, "loading embedding model");
-    extractorPromise = pipeline("feature-extraction", MODEL, {
-      dtype: "q8",
-    }).then((extractor) => {
-      log.info({ model: MODEL }, "embedding model ready");
-      return extractor as unknown as Extractor;
-    });
+function getExtractor(model: string): Promise<Extractor> {
+  let extractor = extractors.get(model);
+  if (!extractor) {
+    log.info({ model }, "loading embedding model");
+    extractor = pipeline("feature-extraction", model, { dtype: "q8" }).then(
+      (loaded) => {
+        log.info({ model }, "embedding model ready");
+        return loaded as unknown as Extractor;
+      },
+    );
+    extractors.set(model, extractor);
     // If loading fails, allow a later call to try again.
-    extractorPromise.catch(() => {
-      extractorPromise = undefined;
-    });
+    extractor.catch(() => extractors.delete(model));
   }
-  return extractorPromise;
+  return extractor;
+}
+
+export interface LocalEmbeddingOptions {
+  model?: string;
+  dimensions?: number;
 }
 
 // E5 models need a prefix that tells them what kind of text they are reading.
 export class LocalEmbeddingProvider implements EmbeddingProvider {
-  readonly dimensions = DIMENSIONS;
+  readonly model: string;
+  readonly dimensions: number;
+
+  constructor(options: LocalEmbeddingOptions = {}) {
+    this.model = options.model ?? DEFAULT_MODEL;
+    this.dimensions = options.dimensions ?? DEFAULT_DIMENSIONS;
+  }
 
   async embedDocuments(texts: string[]): Promise<number[][]> {
     return this.embed(texts.map((text) => `passage: ${text}`));
@@ -50,7 +61,7 @@ export class LocalEmbeddingProvider implements EmbeddingProvider {
   }
 
   private async embed(prefixedTexts: string[]): Promise<number[][]> {
-    const extractor = await getExtractor();
+    const extractor = await getExtractor(this.model);
     const vectors: number[][] = [];
     for (let i = 0; i < prefixedTexts.length; i += BATCH_SIZE) {
       const batch = prefixedTexts.slice(i, i + BATCH_SIZE);
