@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { pool } from "../../../lib/db";
 import { listDocuments } from "../../../lib/documents";
+import { MAX_BODY_BYTES, checkRateLimit } from "../../../lib/limits";
 import { LocalEmbeddingProvider } from "../../../lib/embeddings/local";
 import { ingestDocument } from "../../../lib/ingest";
 import { createLogger } from "../../../lib/logger";
+import { rejectOversizedBody } from "../../../lib/request-limits";
 import { validateUpload } from "../../../lib/upload";
 
 const log = createLogger("api.documents");
@@ -11,7 +13,10 @@ const embeddings = new LocalEmbeddingProvider();
 
 // The list is read from the database on every request (a database query makes a GET
 // handler run at request time even with Cache Components, so it is never stale).
-export async function GET() {
+export async function GET(request: Request) {
+  const limited = checkRateLimit("general", request);
+  if (limited) return limited;
+
   try {
     return NextResponse.json({ documents: await listDocuments(pool) });
   } catch (error) {
@@ -21,6 +26,10 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Refuse too many uploads, and a body that is too big, before reading it into memory.
+  const refused = checkRateLimit("upload", request) ?? rejectOversizedBody(request, MAX_BODY_BYTES.upload);
+  if (refused) return refused;
+
   let formData: FormData;
   try {
     formData = await request.formData();

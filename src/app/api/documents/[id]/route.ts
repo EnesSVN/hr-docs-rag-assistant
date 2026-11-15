@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import { pool } from "../../../../lib/db";
 import { deleteDocument, parseDocumentId } from "../../../../lib/documents";
+import { checkRateLimit } from "../../../../lib/limits";
 import { createLogger } from "../../../../lib/logger";
 
 const log = createLogger("api.documents.delete");
 
-export async function DELETE(_request: Request, context: RouteContext<"/api/documents/[id]">) {
+export async function DELETE(request: Request, context: RouteContext<"/api/documents/[id]">) {
+  const limited = checkRateLimit("general", request);
+  if (limited) return limited;
+
   const { id } = await context.params;
 
   let documentId: string;

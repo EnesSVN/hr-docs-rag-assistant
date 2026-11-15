@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "./route";
 import { answerQuestion } from "../../../lib/answer";
 import { LlmError } from "../../../lib/llm/provider";
+import { MAX_BODY_BYTES, checkRateLimit } from "../../../lib/limits";
+import { rejectOversizedBody } from "../../../lib/request-limits";
 
 // The route is tested without a real database, embedding model or chat model.
 const fakeEnv = vi.hoisted(() => ({
@@ -13,6 +15,9 @@ vi.mock("../../../lib/env", () => ({ env: fakeEnv }));
 vi.mock("../../../lib/db", () => ({ pool: {} }));
 vi.mock("../../../lib/embeddings/local", () => ({ LocalEmbeddingProvider: class {} }));
 vi.mock("../../../lib/answer", () => ({ answerQuestion: vi.fn() }));
+// The limits have their own tests; here we only check how the route uses them.
+vi.mock("../../../lib/limits", async (original) => ({ ...(await original<typeof import("../../../lib/limits")>()), checkRateLimit: vi.fn() }));
+vi.mock("../../../lib/request-limits", async (original) => ({ ...(await original<typeof import("../../../lib/request-limits")>()), rejectOversizedBody: vi.fn() }));
 
 function askRequest(body: unknown) {
   return new Request("http://localhost/api/ask", {
@@ -23,7 +28,10 @@ function askRequest(body: unknown) {
 
 describe("POST /api/ask", () => {
   beforeEach(() => {
+    vi.clearAllMocks(); // calls from earlier tests must not count in "was not called" checks
     vi.mocked(answerQuestion).mockReset();
+    vi.mocked(checkRateLimit).mockReturnValue(null);
+    vi.mocked(rejectOversizedBody).mockReturnValue(null);
     fakeEnv.NVIDIA_API_KEY = "test-key";
     fakeEnv.NVIDIA_MODEL = "test/model";
   });
@@ -75,5 +83,35 @@ describe("POST /api/ask", () => {
 
     expect(response.status).toBe(500);
     expect(JSON.stringify(await response.json())).not.toContain("relation");
+  });
+
+  describe("limits", () => {
+    it("uses the ask rate limit and the ask body size limit", async () => {
+      vi.mocked(answerQuestion).mockResolvedValue({ answer: "a", refused: false, sources: [] });
+
+      await POST(askRequest({ question: "q" }));
+
+      expect(checkRateLimit).toHaveBeenCalledWith("ask", expect.any(Request));
+      expect(rejectOversizedBody).toHaveBeenCalledWith(expect.any(Request), MAX_BODY_BYTES.ask);
+    });
+
+    it("answers 429 and does no work when the client asks too often", async () => {
+      vi.mocked(checkRateLimit).mockReturnValue(Response.json({ error: "Too many requests." }, { status: 429, headers: { "Retry-After": "12" } }));
+
+      const response = await POST(askRequest({ question: "q" }));
+
+      expect(response.status).toBe(429);
+      expect(response.headers.get("Retry-After")).toBe("12");
+      expect(answerQuestion).not.toHaveBeenCalled();
+      // The rate limit is checked first, so a flood of big bodies is stopped without more work.
+      expect(rejectOversizedBody).not.toHaveBeenCalled();
+    });
+
+    it("answers 413 and does no work when the body is too big", async () => {
+      vi.mocked(rejectOversizedBody).mockReturnValue(Response.json({ error: "request is too large" }, { status: 413 }));
+
+      expect((await POST(askRequest({ question: "q" }))).status).toBe(413);
+      expect(answerQuestion).not.toHaveBeenCalled();
+    });
   });
 });
