@@ -157,6 +157,23 @@ describe("useChat", () => {
       expect(await errorFor(json({ error: "x" }, 503))).toMatchObject({ status: "error", message: "The answer model is not set up yet." });
     });
 
+    it("tells the user how long to wait when asking too quickly (429 with Retry-After)", async () => {
+      const response = new Response(JSON.stringify({ error: "Too many requests." }), { status: 429, headers: { "Retry-After": "12" } });
+
+      expect(await errorFor(response)).toMatchObject({ status: "error", message: "You are asking too quickly. Try again in 12 seconds." });
+    });
+
+    it("says 'a moment' for a 429 without a usable Retry-After", async () => {
+      expect(await errorFor(json({ error: "x" }, 429))).toMatchObject({
+        status: "error",
+        message: "You are asking too quickly. Wait a moment and try again.",
+      });
+    });
+
+    it("says the question is too long for a 413", async () => {
+      expect(await errorFor(json({ error: "request is too large" }, 413))).toMatchObject({ status: "error", message: "That question is too long." });
+    });
+
     it("uses a generic message for other server errors", async () => {
       expect(await errorFor(json({ error: "relation chunks does not exist" }, 500))).toMatchObject({
         status: "error",

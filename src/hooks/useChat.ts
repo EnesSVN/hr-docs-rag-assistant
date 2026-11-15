@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { isAskResponse, type ChatMessage, type Reply } from "@/lib/chat";
-import { capitalize } from "@/lib/format";
+import { capitalize, pluralize } from "@/lib/format";
 
 const MESSAGES = {
   network: "Could not reach the server. Check your connection and try again.",
@@ -9,6 +9,13 @@ const MESSAGES = {
   notConfigured: "The answer model is not set up yet.",
   generic: "Something went wrong. Try again.",
 } as const;
+
+function tooFast(response: Response): string {
+  const seconds = Number(response.headers.get("Retry-After"));
+  return Number.isInteger(seconds) && seconds > 0
+    ? `You are asking too quickly. Try again in ${pluralize(seconds, "second")}.`
+    : "You are asking too quickly. Wait a moment and try again.";
+}
 
 async function requestAnswer(question: string, timeoutMs: number): Promise<Reply> {
   let response: Response;
@@ -37,6 +44,8 @@ async function requestAnswer(question: string, timeoutMs: number): Promise<Reply
     const text = typeof body === "object" && body !== null && "error" in body ? String((body as { error: unknown }).error) : "";
     return { status: "error", message: text ? capitalize(text) : MESSAGES.generic };
   }
+  if (response.status === 429) return { status: "error", message: tooFast(response) };
+  if (response.status === 413) return { status: "error", message: "That question is too long." };
   if (response.status === 502) return { status: "error", message: MESSAGES.modelDown };
   if (response.status === 503) return { status: "error", message: MESSAGES.notConfigured };
   return { status: "error", message: MESSAGES.generic };
