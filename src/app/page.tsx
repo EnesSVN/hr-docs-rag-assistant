@@ -1,7 +1,7 @@
 import { MessagesSquare } from "lucide-react";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { Sidebar } from "@/components/organisms/Sidebar";
-import { UploadForm } from "@/components/organisms/UploadForm";
+import { DocumentsPanel } from "@/components/organisms/DocumentsPanel";
 import { AppShell } from "@/components/templates/AppShell";
 
 export default function Home() {
@@ -10,8 +10,7 @@ export default function Home() {
       title="Ask your documents"
       sidebar={
         <Sidebar>
-          {/* Temporary: replaced by the drag-and-drop upload area and the document list. */}
-          <UploadForm />
+          <DocumentsPanel />
         </Sidebar>
       }
     >
