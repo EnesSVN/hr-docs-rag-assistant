@@ -1,0 +1,1832 @@
+{
+  "date": "2026-11-15",
+  "model": "Xenova/multilingual-e5-small",
+  "dimensions": 384,
+  "quantization": "q8",
+  "questions": 24,
+  "documents": 6,
+  "k": 5,
+  "note": "Synthetic documents and questions written by Claude Code; a small test, not a general accuracy figure.",
+  "runs": [
+    {
+      "chunkSize": 300,
+      "overlap": 45,
+      "totalChunks": 31,
+      "overall": {
+        "total": 24,
+        "hitAt1": 15,
+        "hitAt3": 16,
+        "hitAt5": 17
+      },
+      "byLanguage": {
+        "sameLanguage": {
+          "total": 12,
+          "hitAt1": 12,
+          "hitAt3": 12,
+          "hitAt5": 12
+        },
+        "crossLanguage": {
+          "total": 12,
+          "hitAt1": 3,
+          "hitAt3": 4,
+          "hitAt5": 5
+        }
+      },
+      "seconds": 1.3,
+      "perQuestion": [
+        {
+          "question": "Kaç gün yıllık iznim var?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Can I take my leftover vacation days into next year?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "İzin istemek için ne kadar önceden haber vermeliyim?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "What happens to my unused holiday days when I quit?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md"
+          ]
+        },
+        {
+          "question": "Maaşım ayın kaçında yatıyor?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "My bank account changed. Until when must I update it?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Where can I look at my old payslips?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Haftada kaç gün evden çalışabilirim?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Do I get money for a desk chair if I work from home?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Can I work for a month from my parents' house in another country?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Evden çalışmak için deneme sürem bitmiş olmalı mı?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How much can I spend on lunch during a business trip?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Fişi kaybettim, masrafımı yine de isteyebilir miyim?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Kendi arabamla müşteriye gittim, kilometre başına ne alırım?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "How long do I have to submit my expenses?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Rapor aldım, İK'ya ne zamana kadar yüklemem lazım?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "If I am sick for only one day, do I need a doctor's note?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Çocuğum hasta, izin alabilir miyim?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Who can see my medical information?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Bir arkadaşımı tavsiye edersem prim alır mıyım?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How long do I have to answer a job offer?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Mülakat kaç aşamadan oluşuyor?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How many reference checks are made on a candidate?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunkSize": 500,
+      "overlap": 75,
+      "totalChunks": 19,
+      "overall": {
+        "total": 24,
+        "hitAt1": 15,
+        "hitAt3": 15,
+        "hitAt5": 16
+      },
+      "byLanguage": {
+        "sameLanguage": {
+          "total": 12,
+          "hitAt1": 12,
+          "hitAt3": 12,
+          "hitAt5": 12
+        },
+        "crossLanguage": {
+          "total": 12,
+          "hitAt1": 3,
+          "hitAt3": 3,
+          "hitAt5": 4
+        }
+      },
+      "seconds": 0.3,
+      "perQuestion": [
+        {
+          "question": "Kaç gün yıllık iznim var?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Can I take my leftover vacation days into next year?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "İzin istemek için ne kadar önceden haber vermeliyim?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "What happens to my unused holiday days when I quit?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Maaşım ayın kaçında yatıyor?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "My bank account changed. Until when must I update it?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Where can I look at my old payslips?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Haftada kaç gün evden çalışabilirim?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Do I get money for a desk chair if I work from home?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Can I work for a month from my parents' house in another country?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Evden çalışmak için deneme sürem bitmiş olmalı mı?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How much can I spend on lunch during a business trip?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Fişi kaybettim, masrafımı yine de isteyebilir miyim?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Kendi arabamla müşteriye gittim, kilometre başına ne alırım?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "How long do I have to submit my expenses?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "payroll-calendar.md"
+          ]
+        },
+        {
+          "question": "Rapor aldım, İK'ya ne zamana kadar yüklemem lazım?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "If I am sick for only one day, do I need a doctor's note?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Çocuğum hasta, izin alabilir miyim?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Who can see my medical information?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Bir arkadaşımı tavsiye edersem prim alır mıyım?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "How long do I have to answer a job offer?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "payroll-calendar.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Mülakat kaç aşamadan oluşuyor?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How many reference checks are made on a candidate?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunkSize": 750,
+      "overlap": 113,
+      "totalChunks": 12,
+      "overall": {
+        "total": 24,
+        "hitAt1": 14,
+        "hitAt3": 15,
+        "hitAt5": 20
+      },
+      "byLanguage": {
+        "sameLanguage": {
+          "total": 12,
+          "hitAt1": 12,
+          "hitAt3": 12,
+          "hitAt5": 12
+        },
+        "crossLanguage": {
+          "total": 12,
+          "hitAt1": 2,
+          "hitAt3": 3,
+          "hitAt5": 8
+        }
+      },
+      "seconds": 0.3,
+      "perQuestion": [
+        {
+          "question": "Kaç gün yıllık iznim var?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Can I take my leftover vacation days into next year?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "İzin istemek için ne kadar önceden haber vermeliyim?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "What happens to my unused holiday days when I quit?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Maaşım ayın kaçında yatıyor?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "My bank account changed. Until when must I update it?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Where can I look at my old payslips?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Haftada kaç gün evden çalışabilirim?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Do I get money for a desk chair if I work from home?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Can I work for a month from my parents' house in another country?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Evden çalışmak için deneme sürem bitmiş olmalı mı?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "How much can I spend on lunch during a business trip?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Fişi kaybettim, masrafımı yine de isteyebilir miyim?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Kendi arabamla müşteriye gittim, kilometre başına ne alırım?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How long do I have to submit my expenses?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Rapor aldım, İK'ya ne zamana kadar yüklemem lazım?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "If I am sick for only one day, do I need a doctor's note?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Çocuğum hasta, izin alabilir miyim?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Who can see my medical information?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Bir arkadaşımı tavsiye edersem prim alır mıyım?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "How long do I have to answer a job offer?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Mülakat kaç aşamadan oluşuyor?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "How many reference checks are made on a candidate?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunkSize": 1000,
+      "overlap": 150,
+      "totalChunks": 12,
+      "overall": {
+        "total": 24,
+        "hitAt1": 14,
+        "hitAt3": 14,
+        "hitAt5": 19
+      },
+      "byLanguage": {
+        "sameLanguage": {
+          "total": 12,
+          "hitAt1": 12,
+          "hitAt3": 12,
+          "hitAt5": 12
+        },
+        "crossLanguage": {
+          "total": 12,
+          "hitAt1": 2,
+          "hitAt3": 2,
+          "hitAt5": 7
+        }
+      },
+      "seconds": 0.3,
+      "perQuestion": [
+        {
+          "question": "Kaç gün yıllık iznim var?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Can I take my leftover vacation days into next year?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "İzin istemek için ne kadar önceden haber vermeliyim?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "What happens to my unused holiday days when I quit?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Maaşım ayın kaçında yatıyor?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "My bank account changed. Until when must I update it?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Where can I look at my old payslips?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Haftada kaç gün evden çalışabilirim?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Do I get money for a desk chair if I work from home?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Can I work for a month from my parents' house in another country?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Evden çalışmak için deneme sürem bitmiş olmalı mı?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "How much can I spend on lunch during a business trip?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md"
+          ]
+        },
+        {
+          "question": "Fişi kaybettim, masrafımı yine de isteyebilir miyim?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Kendi arabamla müşteriye gittim, kilometre başına ne alırım?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "How long do I have to submit my expenses?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Rapor aldım, İK'ya ne zamana kadar yüklemem lazım?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "If I am sick for only one day, do I need a doctor's note?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "annual-leave-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Çocuğum hasta, izin alabilir miyim?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Who can see my medical information?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Bir arkadaşımı tavsiye edersem prim alır mıyım?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "How long do I have to answer a job offer?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": null,
+          "returned": [
+            "payroll-calendar.md",
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Mülakat kaç aşamadan oluşuyor?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "How many reference checks are made on a candidate?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "remote-work-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunkSize": 1500,
+      "overlap": 225,
+      "totalChunks": 6,
+      "overall": {
+        "total": 24,
+        "hitAt1": 13,
+        "hitAt3": 20,
+        "hitAt5": 24
+      },
+      "byLanguage": {
+        "sameLanguage": {
+          "total": 12,
+          "hitAt1": 12,
+          "hitAt3": 12,
+          "hitAt5": 12
+        },
+        "crossLanguage": {
+          "total": 12,
+          "hitAt1": 1,
+          "hitAt3": 8,
+          "hitAt5": 12
+        }
+      },
+      "seconds": 0.4,
+      "perQuestion": [
+        {
+          "question": "Kaç gün yıllık iznim var?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Can I take my leftover vacation days into next year?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "payroll-calendar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "İzin istemek için ne kadar önceden haber vermeliyim?",
+          "language": "tr",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "What happens to my unused holiday days when I quit?",
+          "language": "en",
+          "expectedDocument": "annual-leave-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Maaşım ayın kaçında yatıyor?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "My bank account changed. Until when must I update it?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Where can I look at my old payslips?",
+          "language": "en",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "payroll-calendar.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "language": "tr",
+          "expectedDocument": "payroll-calendar.md",
+          "sameLanguage": false,
+          "rank": 4,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Haftada kaç gün evden çalışabilirim?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md"
+          ]
+        },
+        {
+          "question": "Do I get money for a desk chair if I work from home?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Can I work for a month from my parents' house in another country?",
+          "language": "en",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Evden çalışmak için deneme sürem bitmiş olmalı mı?",
+          "language": "tr",
+          "expectedDocument": "remote-work-policy.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "How much can I spend on lunch during a business trip?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Fişi kaybettim, masrafımı yine de isteyebilir miyim?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 3,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "Kendi arabamla müşteriye gittim, kilometre başına ne alırım?",
+          "language": "tr",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": false,
+          "rank": 2,
+          "returned": [
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "hastalik-izni-ve-raporlar.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "How long do I have to submit my expenses?",
+          "language": "en",
+          "expectedDocument": "expense-reimbursement.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md",
+            "hastalik-izni-ve-raporlar.md"
+          ]
+        },
+        {
+          "question": "Rapor aldım, İK'ya ne zamana kadar yüklemem lazım?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "remote-work-policy.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "If I am sick for only one day, do I need a doctor's note?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 2,
+          "returned": [
+            "annual-leave-policy.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md"
+          ]
+        },
+        {
+          "question": "Çocuğum hasta, izin alabilir miyim?",
+          "language": "tr",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Who can see my medical information?",
+          "language": "en",
+          "expectedDocument": "hastalik-izni-ve-raporlar.md",
+          "sameLanguage": false,
+          "rank": 1,
+          "returned": [
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md",
+            "annual-leave-policy.md"
+          ]
+        },
+        {
+          "question": "Bir arkadaşımı tavsiye edersem prim alır mıyım?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "remote-work-policy.md",
+            "payroll-calendar.md"
+          ]
+        },
+        {
+          "question": "How long do I have to answer a job offer?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 5,
+          "returned": [
+            "remote-work-policy.md",
+            "annual-leave-policy.md",
+            "expense-reimbursement.md",
+            "payroll-calendar.md",
+            "ise-alim-sureci.md"
+          ]
+        },
+        {
+          "question": "Mülakat kaç aşamadan oluşuyor?",
+          "language": "tr",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": true,
+          "rank": 1,
+          "returned": [
+            "ise-alim-sureci.md",
+            "hastalik-izni-ve-raporlar.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "remote-work-policy.md"
+          ]
+        },
+        {
+          "question": "How many reference checks are made on a candidate?",
+          "language": "en",
+          "expectedDocument": "ise-alim-sureci.md",
+          "sameLanguage": false,
+          "rank": 2,
+          "returned": [
+            "remote-work-policy.md",
+            "ise-alim-sureci.md",
+            "expense-reimbursement.md",
+            "annual-leave-policy.md",
+            "payroll-calendar.md"
+          ]
+        }
+      ]
+    }
+  ]
+}
