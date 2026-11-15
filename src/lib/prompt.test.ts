@@ -48,4 +48,19 @@ describe("buildPrompt", () => {
     expect(prompt.indexOf("ONLY")).toBeLessThan(prompt.indexOf("Sources:"));
     expect(prompt.indexOf("Sources:")).toBeLessThan(prompt.indexOf("Question: q"));
   });
+
+  it("tells the model that questions about \"this document\" mean the sources, even from several files", () => {
+    const prompt = buildPrompt("What does this document say?", sources);
+
+    expect(prompt).toContain('"this document"');
+    expect(prompt).toContain("even when the sources come from different files");
+  });
+
+  it("keeps the refusal rule for specific questions, so unanswerable questions are still refused", () => {
+    expect(buildPrompt("q", sources)).toContain(`If the sources do not contain the answer to a specific question, reply exactly: "${NO_ANSWER_TEXT}"`);
+  });
+
+  it("asks for plain text, because the screen shows no Markdown", () => {
+    expect(buildPrompt("q", sources)).toContain("Write plain text");
+  });
 });
