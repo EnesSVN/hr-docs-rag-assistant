@@ -3,6 +3,16 @@ import { FakeEmbeddingProvider } from "./embeddings/fake";
 import type { EmbeddingProvider } from "./embeddings/provider";
 import { ingestDocument, type DbClient, type DbPool } from "./ingest";
 
+// Records what the module logs, so a test can check that no file name ends up in a log.
+const logged = vi.hoisted(() => ({ calls: [] as unknown[][] }));
+vi.mock("./logger", () => ({
+  createLogger: () => ({
+    info: (...args: unknown[]) => logged.calls.push(args),
+    warn: (...args: unknown[]) => logged.calls.push(args),
+    error: (...args: unknown[]) => logged.calls.push(args),
+  }),
+}));
+
 // A fake database that records every query instead of running it.
 function createFakeDb(options: { failOnChunkIndex?: number } = {}) {
   const queries: { sql: string; params?: unknown[] }[] = [];
@@ -133,5 +143,33 @@ describe("ingestDocument", () => {
     ).rejects.toThrow("dimensions");
 
     expect(db.connect).not.toHaveBeenCalled();
+  });
+
+  describe("logging", () => {
+    // A file name can contain a person's name ("ahmet-yilmaz-maas.md"): it must not be logged.
+    const SECRET_NAME = "ahmet-yilmaz-maas-bordrosu.md";
+
+    it("does not put the file name into the log when the document is stored", async () => {
+      logged.calls.length = 0;
+      const db = createFakeDb();
+
+      await ingestDocument({ pool: db.pool, embeddings: new FakeEmbeddingProvider(4) }, { filename: SECRET_NAME, text: "hello" });
+
+      expect(logged.calls.length).toBeGreaterThan(0);
+      expect(JSON.stringify(logged.calls)).not.toContain("ahmet");
+      expect(JSON.stringify(logged.calls)).toContain("documentId");
+    });
+
+    it("does not put the file name into the log when storing fails", async () => {
+      logged.calls.length = 0;
+      const db = createFakeDb({ failOnChunkIndex: 0 });
+
+      await expect(
+        ingestDocument({ pool: db.pool, embeddings: new FakeEmbeddingProvider(4) }, { filename: SECRET_NAME, text: "hello" }),
+      ).rejects.toThrow("insert failed");
+
+      expect(logged.calls.length).toBeGreaterThan(0);
+      expect(JSON.stringify(logged.calls)).not.toContain("ahmet");
+    });
   });
 });

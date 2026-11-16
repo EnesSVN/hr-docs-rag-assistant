@@ -90,11 +90,11 @@ export async function ingestDocument(
     }
 
     await client.query("COMMIT");
-    log.info({ documentId, filename, chunkCount: chunks.length }, "document ingested");
+    log.info({ documentId, chunkCount: chunks.length }, "document ingested");
     return { documentId, chunkCount: chunks.length };
   } catch (error) {
     await client.query("ROLLBACK");
-    log.error({ err: error, filename }, "ingest failed, rolled back");
+    log.error({ err: error }, "ingest failed, rolled back");
     throw error;
   } finally {
     client.release();
