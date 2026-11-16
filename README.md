@@ -212,6 +212,10 @@ src/lib/           server logic: chunking, embeddings, ingest, search, prompt,
                    answering, rate limits, origin check, citations
 ```
 
+## License
+
+The code is released under the [MIT License](LICENSE). Other parts have their own terms: the original embedding model `intfloat/multilingual-e5-small` is MIT licensed according to its Hugging Face page, and the chat model is used through the NVIDIA API Catalog under NVIDIA's own terms.
+
 ## Built with Claude Code
 
 This is a learning project built by Enes together with **Claude Code** (Anthropic's coding agent), in small steps that Enes reviewed; Enes made every commit.
