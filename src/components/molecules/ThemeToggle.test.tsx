@@ -93,4 +93,12 @@ describe("ThemeToggle", () => {
 
     expect(system.listenerCount()).toBe(0);
   });
+
+  it("is visible once the browser has read the saved choice", () => {
+    mockMatchMedia(false);
+    const { container } = render(<ThemeToggle />);
+
+    expect(container.firstElementChild).toHaveClass("opacity-100");
+    expect(container.firstElementChild).not.toHaveClass("opacity-0");
+  });
 });
