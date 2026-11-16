@@ -3,12 +3,13 @@ import { pool } from "../../../../lib/db";
 import { deleteDocument, parseDocumentId } from "../../../../lib/documents";
 import { checkRateLimit } from "../../../../lib/limits";
 import { createLogger } from "../../../../lib/logger";
+import { rejectCrossOrigin } from "../../../../lib/origin";
 
 const log = createLogger("api.documents.delete");
 
 export async function DELETE(request: Request, context: RouteContext<"/api/documents/[id]">) {
-  const limited = checkRateLimit("general", request);
-  if (limited) return limited;
+  const refused = rejectCrossOrigin(request) ?? checkRateLimit("general", request);
+  if (refused) return refused;
 
   const { id } = await context.params;
 

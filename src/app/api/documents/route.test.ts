@@ -153,3 +153,17 @@ describe("limits of /api/documents", () => {
     expect(listDocuments).not.toHaveBeenCalled();
   });
 });
+
+describe("requests to /api/documents from other sites", () => {
+  it("cannot upload: refused with 403 before anything is read or stored", async () => {
+    const form = new FormData();
+    form.append("file", new File(["x"], "a.md"));
+    const request = new Request("http://localhost/api/documents", { method: "POST", headers: { origin: "https://evil.example" }, body: form });
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(403);
+    expect(checkRateLimit).not.toHaveBeenCalled();
+    expect(ingestDocument).not.toHaveBeenCalled();
+  });
+});

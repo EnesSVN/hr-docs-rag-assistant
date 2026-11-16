@@ -5,6 +5,7 @@ import { MAX_BODY_BYTES, checkRateLimit } from "../../../lib/limits";
 import { LocalEmbeddingProvider } from "../../../lib/embeddings/local";
 import { ingestDocument } from "../../../lib/ingest";
 import { createLogger } from "../../../lib/logger";
+import { rejectCrossOrigin } from "../../../lib/origin";
 import { rejectOversizedBody } from "../../../lib/request-limits";
 import { validateUpload } from "../../../lib/upload";
 
@@ -26,8 +27,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  // Refuse too many uploads, and a body that is too big, before reading it into memory.
-  const refused = checkRateLimit("upload", request) ?? rejectOversizedBody(request, MAX_BODY_BYTES.upload);
+  // Refuse another site, too many uploads, and a body that is too big, before reading it into memory.
+  const refused =
+    rejectCrossOrigin(request) ?? checkRateLimit("upload", request) ?? rejectOversizedBody(request, MAX_BODY_BYTES.upload);
   if (refused) return refused;
 
   let formData: FormData;
@@ -64,7 +66,7 @@ export async function POST(request: Request) {
     );
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    log.error({ err: error, filename: file.name }, "document upload failed");
+    log.error({ err: error, bytes: file.size }, "document upload failed");
     return NextResponse.json(
       { error: "could not process the document" },
       { status: 500 },

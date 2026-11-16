@@ -114,4 +114,35 @@ describe("POST /api/ask", () => {
       expect(answerQuestion).not.toHaveBeenCalled();
     });
   });
+
+  describe("requests from other sites", () => {
+    const fromOtherSite = () =>
+      new Request("http://localhost/api/ask", { method: "POST", headers: { origin: "https://evil.example" }, body: JSON.stringify({ question: "q" }) });
+
+    it("are refused with 403 before the rate limit, the size check or any work", async () => {
+      const response = await POST(fromOtherSite());
+
+      expect(response.status).toBe(403);
+      expect(checkRateLimit).not.toHaveBeenCalled();
+      expect(answerQuestion).not.toHaveBeenCalled();
+    });
+
+    it("are refused even when the body is plain text that happens to be JSON (the cross-site trick)", async () => {
+      const trick = new Request("http://localhost/api/ask", {
+        method: "POST",
+        headers: { origin: "https://evil.example", "content-type": "text/plain" },
+        body: JSON.stringify({ question: "run up the bill" }),
+      });
+
+      expect((await POST(trick)).status).toBe(403);
+      expect(answerQuestion).not.toHaveBeenCalled();
+    });
+
+    it("do not stop our own page, which sends the same Origin as the server address", async () => {
+      vi.mocked(answerQuestion).mockResolvedValue({ answer: "a", refused: false, sources: [] });
+      const own = new Request("http://localhost/api/ask", { method: "POST", headers: { origin: "http://localhost" }, body: JSON.stringify({ question: "q" }) });
+
+      expect((await POST(own)).status).toBe(200);
+    });
+  });
 });

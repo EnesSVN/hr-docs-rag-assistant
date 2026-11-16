@@ -8,6 +8,7 @@ import { NvidiaLlmProvider } from "../../../lib/llm/nvidia";
 import { LlmError } from "../../../lib/llm/provider";
 import { MAX_BODY_BYTES, checkRateLimit } from "../../../lib/limits";
 import { createLogger } from "../../../lib/logger";
+import { rejectCrossOrigin } from "../../../lib/origin";
 import { rejectOversizedBody } from "../../../lib/request-limits";
 
 const log = createLogger("api.ask");
@@ -25,8 +26,9 @@ function getLlm(): NvidiaLlmProvider | null {
 }
 
 export async function POST(request: Request) {
-  // Cheap checks first: too many requests, or a body that is too big, are refused before any work.
-  const refused = checkRateLimit("ask", request) ?? rejectOversizedBody(request, MAX_BODY_BYTES.ask);
+  // Cheap checks first: another site, too many requests, or a body that is too big are refused before any work.
+  const refused =
+    rejectCrossOrigin(request) ?? checkRateLimit("ask", request) ?? rejectOversizedBody(request, MAX_BODY_BYTES.ask);
   if (refused) return refused;
 
   let body: unknown;

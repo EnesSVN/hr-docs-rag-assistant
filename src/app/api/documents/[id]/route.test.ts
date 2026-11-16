@@ -61,4 +61,13 @@ describe("DELETE /api/documents/[id]", () => {
     expect(checkRateLimit).toHaveBeenCalledWith("general", expect.any(Request));
     expect(deleteDocument).not.toHaveBeenCalled();
   });
+
+  it("answers 403 to a request from another site, without touching the database", async () => {
+    const request = new Request("http://localhost/api/documents/7", { method: "DELETE", headers: { origin: "https://evil.example" } });
+
+    const response = await DELETE(request, { params: Promise.resolve({ id: "7" }) } as Parameters<typeof DELETE>[1]);
+
+    expect(response.status).toBe(403);
+    expect(deleteDocument).not.toHaveBeenCalled();
+  });
 });
