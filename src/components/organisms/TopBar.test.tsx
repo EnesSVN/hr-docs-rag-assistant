@@ -36,4 +36,17 @@ describe("TopBar", () => {
 
     expect(screen.getByRole("radiogroup", { name: "Theme" })).toBeInTheDocument();
   });
+
+  it("shows the page's own buttons next to the theme switch", () => {
+    render(<TopBar title="Title" onMenuClick={() => {}} actions={<button>New chat</button>} />);
+
+    expect(screen.getByRole("button", { name: "New chat" })).toBeInTheDocument();
+    expect(screen.getByRole("radiogroup", { name: "Theme" })).toBeInTheDocument();
+  });
+
+  it("works without page buttons", () => {
+    render(<TopBar title="Title" onMenuClick={() => {}} />);
+
+    expect(screen.queryByRole("button", { name: "New chat" })).not.toBeInTheDocument();
+  });
 });

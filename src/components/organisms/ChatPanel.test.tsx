@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChatPanel, STARTER_QUESTIONS } from "./ChatPanel";
+import { ChatProvider } from "@/hooks/ChatProvider";
 import { DocumentsProvider } from "@/hooks/DocumentsProvider";
 
 const fetchMock = vi.fn();
@@ -13,9 +14,7 @@ const source = { chunkId: "1", documentId: "1", filename: "leave.md", chunkIndex
 function setup(documents: unknown[], ask: () => Promise<Response> = async () => json({ answer: "20 days [1]", refused: false, sources: [source] })) {
   fetchMock.mockImplementation(async (url: string) => (url === "/api/documents" ? json({ documents }) : ask()));
   return render(
-    <DocumentsProvider>
-      <ChatPanel />
-    </DocumentsProvider>,
+    <DocumentsProvider><ChatProvider><ChatPanel /></ChatProvider></DocumentsProvider>,
   );
 }
 
@@ -50,9 +49,7 @@ describe("ChatPanel", () => {
     it("does not offer examples before it knows whether documents exist", () => {
       fetchMock.mockReturnValue(new Promise(() => {}));
       render(
-        <DocumentsProvider>
-          <ChatPanel />
-        </DocumentsProvider>,
+        <DocumentsProvider><ChatProvider><ChatPanel /></ChatProvider></DocumentsProvider>,
       );
 
       expect(screen.queryByRole("list", { name: "Example questions" })).not.toBeInTheDocument();
@@ -131,38 +128,6 @@ describe("ChatPanel", () => {
       expect(await screen.findByRole("button", { name: "Show source 1" })).toBeInTheDocument();
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
       expect(screen.getAllByText("How many days?")).toHaveLength(1);
-    });
-  });
-
-  describe("New chat", () => {
-    it("is not shown before the first question", async () => {
-      setup([doc]);
-      await screen.findByRole("list", { name: "Example questions" });
-
-      expect(screen.queryByRole("button", { name: "New chat" })).not.toBeInTheDocument();
-    });
-
-    it("clears the conversation and brings back the examples", async () => {
-      const user = userEvent.setup();
-      setup([doc]);
-      await screen.findByRole("list", { name: "Example questions" });
-      await user.type(box(), "Question{Enter}");
-      await screen.findByText("20 days");
-
-      await user.click(screen.getByRole("button", { name: "New chat" }));
-
-      expect(screen.queryByRole("article", { name: "Answer" })).not.toBeInTheDocument();
-      expect(screen.getByRole("list", { name: "Example questions" })).toBeInTheDocument();
-    });
-
-    it("cannot be used while an answer is on its way", async () => {
-      const user = userEvent.setup();
-      setup([doc], () => new Promise<Response>(() => {}));
-      await screen.findByRole("list", { name: "Example questions" });
-
-      await user.type(box(), "Question{Enter}");
-
-      expect(await screen.findByRole("button", { name: "New chat" })).toBeDisabled();
     });
   });
 

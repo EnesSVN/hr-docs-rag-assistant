@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FilePlus2, MessagesSquare, SquarePen } from "lucide-react";
+import { FilePlus2, MessagesSquare } from "lucide-react";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { StarterPrompts } from "@/components/molecules/StarterPrompts";
 import { ChatMessage, messageElementId } from "@/components/organisms/ChatMessage";
 import { Composer } from "@/components/organisms/Composer";
-import { Button } from "@/components/ui/button";
+import { useChatContext } from "@/hooks/ChatProvider";
 import { useDocumentsContext } from "@/hooks/DocumentsProvider";
-import { useChat } from "@/hooks/useChat";
 import { scrollToElement } from "@/lib/scroll";
-import { cn } from "@/lib/utils";
 
 export const STARTER_QUESTIONS = [
   "Summarize the main points of my documents.",
@@ -21,7 +19,7 @@ export const STARTER_QUESTIONS = [
 // The conversation area: messages, the question box, and what to show before the first question.
 export function ChatPanel() {
   const { state } = useDocumentsContext();
-  const { messages, pending, send, retry, clear } = useChat();
+  const { messages, pending, send, retry } = useChatContext();
   const bottom = useRef<HTMLDivElement>(null);
 
   const documentCount = state.status === "ready" ? state.documents.length : null;
@@ -39,9 +37,9 @@ export function ChatPanel() {
   }, [messages]);
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col">
+    <div className="flex h-full min-h-0 flex-col">
       <div role="log" aria-label="Conversation" aria-live="polite" className="min-h-0 flex-1 overflow-y-auto">
-        <div className={cn("mx-auto flex min-h-full w-full max-w-3xl flex-col gap-5 px-4 pb-6", messages.length > 0 ? "pt-14" : "pt-6")}>
+        <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col gap-5 px-4 py-6">
           {messages.length === 0 ? (
             <div className="flex flex-1 items-center justify-center">
               {noDocuments ? (
@@ -66,19 +64,6 @@ export function ChatPanel() {
           <div ref={bottom} />
         </div>
       </div>
-
-      {messages.length > 0 && (
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={clear}
-          disabled={pending}
-          className="material absolute right-4 top-3 rounded-full"
-        >
-          <SquarePen aria-hidden="true" />
-          New chat
-        </Button>
-      )}
 
       <div className="material border-t border-border px-4 pb-4 pt-3">
         <div className="mx-auto w-full max-w-3xl">

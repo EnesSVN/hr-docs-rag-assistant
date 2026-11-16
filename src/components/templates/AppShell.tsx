@@ -7,12 +7,14 @@ import { TopBar } from "@/components/organisms/TopBar";
 interface AppShellProps {
   sidebar: ReactNode;
   title: string;
+  // Buttons for the top bar, next to the theme switch.
+  actions?: ReactNode;
   children: ReactNode;
 }
 
 // The page frame. Wide screens: sidebar on the left, content on the right.
 // Small screens: the sidebar opens as a drawer from the left.
-export function AppShell({ sidebar, title, children }: AppShellProps) {
+export function AppShell({ sidebar, title, actions, children }: AppShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -37,7 +39,7 @@ export function AppShell({ sidebar, title, children }: AppShellProps) {
       </Sheet>
 
       <div className="flex min-h-0 min-w-0 flex-col">
-        <TopBar title={title} onMenuClick={() => setDrawerOpen(true)} />
+        <TopBar title={title} actions={actions} onMenuClick={() => setDrawerOpen(true)} />
         <main id="main" tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto outline-none">
           {children}
         </main>

@@ -55,4 +55,14 @@ describe("AppShell", () => {
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  it("puts the given buttons in the top bar", () => {
+    render(
+      <AppShell title="T" sidebar={<p>Sidebar</p>} actions={<button>Extra</button>}>
+        <p>Main</p>
+      </AppShell>,
+    );
+
+    expect(screen.getByRole("button", { name: "Extra" })).toBeInTheDocument();
+  });
 });
