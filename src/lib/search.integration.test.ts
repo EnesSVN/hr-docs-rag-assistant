@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { Pool } from "pg";
 import { FakeEmbeddingProvider } from "./embeddings/fake";
+import { chunkText } from "./chunker";
 import { ingestDocument } from "./ingest";
 import { searchChunks } from "./search";
 
@@ -32,6 +33,8 @@ describe.skipIf(!run)("searchChunks (real database)", () => {
     await pool.end();
   });
 
+  // The database may hold other documents too (for example a real one), so these tests
+  // must not assume that only our two test documents exist.
   it("returns complete results, closest first, at most k", async () => {
     const results = await searchChunks({ db: pool, embeddings }, "any question", 3);
 
@@ -39,12 +42,29 @@ describe.skipIf(!run)("searchChunks (real database)", () => {
     for (const result of results) {
       expect(result.chunkId).toMatch(/^\d+$/);
       expect(result.documentId).toMatch(/^\d+$/);
-      expect(result.filename).toMatch(/^search-test-/);
+      expect(typeof result.filename).toBe("string");
       expect(typeof result.chunkIndex).toBe("number");
       expect(result.content.length).toBeGreaterThan(0);
       expect(typeof result.distance).toBe("number");
     }
     const distances = results.map((r) => r.distance);
     expect(distances).toEqual([...distances].sort((a, b) => a - b));
+  });
+
+  it("puts the chunk that matches exactly first, whatever else is stored", async () => {
+    // Ask with the very vector stored for one of our chunks: its distance must be (almost) 0.
+    const ownChunk = chunkText(`Text of search-test-a.txt. `.repeat(100), { size: 500, overlap: 50 })[0];
+    const asTheStoredPassage = {
+      ...embeddings,
+      dimensions: embeddings.dimensions,
+      embedDocuments: embeddings.embedDocuments.bind(embeddings),
+      embedQuery: async (text: string) => (await embeddings.embedDocuments([text]))[0],
+    };
+
+    const results = await searchChunks({ db: pool, embeddings: asTheStoredPassage }, ownChunk, 3);
+
+    expect(results[0].filename).toBe("search-test-a.txt");
+    expect(results[0].content).toBe(ownChunk);
+    expect(results[0].distance).toBeLessThan(1e-6);
   });
 });
