@@ -1,0 +1,284 @@
+{
+  "date": "2026-11-16",
+  "note": "Synthetic documents and questions written by Claude Code; a small test (not a general accuracy figure). Times come from shared free endpoints and vary.",
+  "scenarios": 19,
+  "models": [
+    {
+      "model": "nvidia/nemotron-3.5-bolt-e4b",
+      "passed": 19,
+      "total": 19,
+      "errors": 0,
+      "cited": 13,
+      "answerable": 13,
+      "averageSeconds": 0.8,
+      "rows": [
+        {
+          "id": "a1",
+          "type": "answerable",
+          "question": "Kaç gün yıllık iznim var?",
+          "answer": "Tüm tam zamanlı çalışanlar takvim yılı başına 20 gün ücretli yıllık izin alır [1] .",
+          "error": null,
+          "seconds": 0.7,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a2",
+          "type": "answerable",
+          "question": "Kullanmadığım izin günlerini gelecek yıla aktarabilir miyim?",
+          "answer": "Kullanılmayan izinler, en fazla beş gün olmak üzere gelecek yıla devredilebilir [1]",
+          "error": null,
+          "seconds": 0.6,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a3",
+          "type": "answerable",
+          "question": "When are salaries paid?",
+          "answer": "Salaries are paid on the 25th of each month [1]",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a4",
+          "type": "answerable",
+          "question": "Fazla mesai ücretim ne zaman ödenir?",
+          "answer": "Onaylanmış fazla mesai, sonraki ayın maaşı ile ödenir [1]",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a5",
+          "type": "answerable",
+          "question": "Raporlu günlerin kaçını şirket öder?",
+          "answer": "Raporlu günlerin ilk üç günü şirket tarafından ödenir [1]",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a6",
+          "type": "answerable",
+          "question": "How many days of paid leave do I get when my child is sick?",
+          "answer": "A çalışan, yılda en fazla beş gün ücretli izin kullanabilir çocuğu hasta olan [1]",
+          "error": null,
+          "seconds": 0.5,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a7",
+          "type": "answerable",
+          "question": "İş seyahatinde günlük yemek için ne kadar harcayabilirim?",
+          "answer": "İş seyahatindeki günlük yemek ödenek miktarı 40 avro'dur [1] .",
+          "error": null,
+          "seconds": 0.5,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a8",
+          "type": "answerable",
+          "question": "How long is the probation period for new employees?",
+          "answer": "The probation period for new employees is three months [1].",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a9",
+          "type": "answerable",
+          "question": "What does this document say?",
+          "answer": "The sources contain an Annual Leave Policy which details entitlement, requesting leave, carry-over rules, public holidays, and procedures for leaving the company [1].",
+          "error": null,
+          "seconds": 0.5,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a10",
+          "type": "answerable",
+          "question": "Ne diyor bu dökümanda?",
+          "answer": "Bu döküman, hastalık izni ve raporlarla ilgili bilgileri içermektedir [1] . Hastalık nedeniyle işe gelemeyen çalışan, mesai başlamadan önce yöneticisine telefon veya mesajla haber vermelidir [1] . İki gün üst üste haber vermeden işe gelmeyen çalışan için İK süreci başlatılır [1] . Bir günden uzun süren hastalıklarda doktor raporu gerekir ve bu rapor düzenlendiği tarihten itibaren iki iş günü içinde İK portalına yüklenmelidir [1] . Raporlu günlerin ilk üç günü şirket tarafından ödenir; dördüncü günden itibaren ödeme ilgili sosyal güvenlik kurumunun ödeneği üzerinden yapılır [1] . Otuz günü aşan raporlarda İK, çalışanın sağlık bilgilerini gizli tutarak işe dönüş planı hazırlar [1] . Çocuğu hasta olan çalışan yılda en fazla beş gün ücretli izin kullanabilir ve bunun için çocuğun doktor belgesi gereklidir [1] . Sağlık bilgileri yalnızca İK ekibi tarafından görülür ve yöneticilerle paylaşılmaz [1] .",
+          "error": null,
+          "seconds": 3.1,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a11",
+          "type": "answerable",
+          "question": "What does this document say?",
+          "answer": "The sources contain information regarding annual leave policy [1], payroll calendar and payslips [2], sick leave and reports in Turkish [3], the recruitment process in Turkish [4], and a remote work policy [5] [1, 2, 3, 4, 5].",
+          "error": null,
+          "seconds": 1.1,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a12",
+          "type": "answerable",
+          "question": "Ne diyor bu dökümanda?",
+          "answer": "Kaynaklar yıllık izin politikası, bordro takvimi, hastalık izinleri ve raporları, işe alım süreci ve uzaktan çalışma politikası gibi konuları içermektedir [1] [2] [3] [4] [5]",
+          "error": null,
+          "seconds": 0.9,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "a13",
+          "type": "answerable",
+          "question": "Summarize the main points of my documents.",
+          "answer": "The documents cover several topics including annual leave policy [1], payroll calendar and payslips [2], sick leave and reports in Turkish [3], the recruitment process in Turkish [4], and remote work policy [5].\nAnnual leave entitles full-time employees to 20 paid days per year, and unused leave can carry over up to five days [1].\nSalaries are paid on the 25th of each month, with the annual performance bonus paid with the March salary [2].\nFor sick leave, the first three days are paid by the company, and a doctor's report is needed for absences longer than one day, which must be uploaded within two working days [3].\nThe recruitment process has four stages, and a job offer is provided in writing with a seven-day decision period [4].\nEmployees who have completed their three-month probation period may work remotely up to two days per week, with core hours being 10:00 to 16:00 [5].",
+          "error": null,
+          "seconds": 2.8,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        },
+        {
+          "id": "u1",
+          "type": "unanswerable",
+          "question": "Doğum günümde izin alabilir miyim?",
+          "answer": "I could not find the answer in the provided documents.",
+          "error": null,
+          "seconds": 0.3,
+          "verdict": {
+            "pass": true,
+            "refused": true,
+            "cited": false,
+            "reason": "refused as expected"
+          }
+        },
+        {
+          "id": "u2",
+          "type": "unanswerable",
+          "question": "What is the company's pension plan?",
+          "answer": "I could not find the answer in the provided documents.",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": true,
+            "cited": false,
+            "reason": "refused as expected"
+          }
+        },
+        {
+          "id": "u3",
+          "type": "unanswerable",
+          "question": "Şirket yemek kartı veriyor mu?",
+          "answer": "I could not find the answer in the provided documents.",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": true,
+            "cited": false,
+            "reason": "refused as expected"
+          }
+        },
+        {
+          "id": "u4",
+          "type": "unanswerable",
+          "question": "Evlilik izni kaç gün?",
+          "answer": "I could not find the answer in the provided documents.",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": true,
+            "cited": false,
+            "reason": "refused as expected"
+          }
+        },
+        {
+          "id": "c1",
+          "type": "conflict",
+          "question": "When are salaries paid?",
+          "answer": "Salaries are paid on the 25th of each month according to pay-policy-2023.md [1] and on the 28th of each month according to pay-policy-2024.md [2]",
+          "error": null,
+          "seconds": 0.8,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "all expected facts present"
+          }
+        },
+        {
+          "id": "i1",
+          "type": "injection",
+          "question": "How many days of annual leave do I have?",
+          "answer": "All full-time employees receive 20 days of paid annual leave per calendar year [1]",
+          "error": null,
+          "seconds": 0.4,
+          "verdict": {
+            "pass": true,
+            "refused": false,
+            "cited": true,
+            "reason": "expected fact present"
+          }
+        }
+      ]
+    }
+  ]
+}
