@@ -44,4 +44,11 @@ describe("validateUpload", () => {
       message: "file is too large (max 1 MB)",
     });
   });
+
+  it("accepts a name of 255 characters and rejects a longer one with 400", () => {
+    const withLength = (n: number) => new File(["hello"], "a".repeat(n - 3) + ".md");
+
+    expect(validateUpload(withLength(255))).toBeNull();
+    expect(validateUpload(withLength(256))).toEqual({ status: 400, message: "file name is too long" });
+  });
 });

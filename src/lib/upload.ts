@@ -1,3 +1,6 @@
+// Most file systems allow at most 255 characters in a name.
+const MAX_FILENAME_LENGTH = 255;
+
 export function validateUpload(
   file: File,
 ): { status: number; message: string } | null {
@@ -6,6 +9,9 @@ export function validateUpload(
     !file.name.toLowerCase().endsWith(".md")
   ) {
     return { status: 415, message: "only .txt and .md files are supported" };
+  }
+  if (file.name.length > MAX_FILENAME_LENGTH) {
+    return { status: 400, message: "file name is too long" };
   }
   if (file.size === 0) {
     return { status: 400, message: "file is empty" };
