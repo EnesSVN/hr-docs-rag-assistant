@@ -129,7 +129,11 @@ Limits per client and minute: 15 questions, 10 uploads, 60 other requests. Uploa
 
 ```bash
 npm test
+npm run lint
+npm run typecheck
 ```
+
+Use `npm run typecheck` instead of plain `tsc`: Next.js generates some global types (such as `RouteContext`) when it builds or starts, and `typecheck` generates them first.
 
 Unit and component tests need no database, model or key. Two kinds of test run only on purpose, because they use real services:
 

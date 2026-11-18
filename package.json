@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "eval": "LOG_LEVEL=warn tsx --env-file=.env eval/run.ts",
     "eval:answers": "LOG_LEVEL=warn tsx --env-file=.env eval/answers.ts"
